@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useClickOutside } from "./useClickOutside";
+import useClickOutside from "./useClickOutside";
 
 const Search = () => {
   const [open, setOpen] = useState(false);

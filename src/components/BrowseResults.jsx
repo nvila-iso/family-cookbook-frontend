@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { PiKnifeFill } from "react-icons/pi";
 import { PiCookingPotFill } from "react-icons/pi";
+import { FaHeart } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 
 const BrowseResults = () => {
   return (
@@ -15,6 +17,11 @@ const BrowseResults = () => {
               alt=""
               className="h-full w-full object-cover"
             />
+            <div className="flex gap-1 items-center relative bottom-32 left-2">
+              <FaHeart className="text-red-500" />
+              <p className="font-semibold">123</p>
+            </div>
+            <FaBookmark className="relative bottom-41 left-50 text-3xl text-amber-500" />
           </div>
           <p className="text-center font-semibold text-xl mb-1">Spaghetti</p>
           <div className="mx-auto py-1 flex justify-evenly border-t border-b w-[90%] border-black/30">
@@ -37,17 +44,15 @@ const BrowseResults = () => {
               preview of maybe what the user had written about it.
             </p>
           </div>
-          <Link className="mt-3 text-center mx-auto w-[80%] bg-lime-500 px-2 py-1 rounded shadow-md font-semibold hover:bg-lime-600 hover:shadow-sm transition">
+          <Link
+            to="/family_cookbook"
+            className="mt-3 text-center mx-auto w-[80%] bg-lime-500 px-2 py-1 rounded shadow-md font-semibold hover:bg-lime-600 hover:shadow-sm transition"
+          >
             View Recipe
           </Link>
 
           <div className="flex flex-1 gap-2 items-center px-3">
-            <img
-              src=""
-              alt=""
-              className=""
-              className="h-5 w-5 rounded-full bg-black"
-            />
+            <img src="" alt="" className="h-5 w-5 rounded-full bg-black" />
             <div className="flex items-center gap-1">
               <p className="font-semibold">created by:</p>
               <Link className="underline italic">nick v.</Link>

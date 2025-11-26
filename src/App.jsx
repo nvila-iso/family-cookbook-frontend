@@ -3,6 +3,7 @@ import RootLayout from "./layouts/RootLayout";
 
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
+import FamilyCookbook from "./pages/FamilyCookbook";
 
 const routes = [
   {
@@ -11,6 +12,7 @@ const routes = [
     children: [
       { index: true, Component: Home },
       { path: "browse", Component: Browse },
+      { path: "family_cookbook", Component: FamilyCookbook },
     ],
   },
 ];
