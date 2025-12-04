@@ -4,8 +4,6 @@ import { useAuth } from "../context/AuthContext";
 const Nav = () => {
   const { token, logout, user } = useAuth();
 
-  console.log(user);
-
   return (
     <>
       <div className="flex items-center justify-between px-5 py-1 border-b border-black/10">
@@ -33,14 +31,14 @@ const Nav = () => {
             >
               logoff
             </Link>
-
+{/* 
             {!user.firstName || !user.lastName || !user.username ? (
               ""
             ) : (
               <div className="text-sm w-10 h-10 rounded-full bg-yellow-300 flex justify-center items-center hover:bg-yellow-400 transition">
                 <p></p>
               </div>
-            )}
+            )} */}
           </div>
         )}
       </div>

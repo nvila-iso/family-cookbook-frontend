@@ -7,7 +7,7 @@ import { FaUnlockKeyhole } from "react-icons/fa6";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, token } = useAuth();
   const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
