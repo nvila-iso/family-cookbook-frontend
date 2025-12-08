@@ -5,10 +5,7 @@ import CommonButton from "../components/commonUI/CommonButton";
 
 const Nav = () => {
   const { token, logout, user } = useAuth();
-
   const location = useLocation();
-
-  console.log(location.pathname === "/setup");
 
   return (
     <>
@@ -25,19 +22,23 @@ const Nav = () => {
           </div>
         ) : (
           <div className="flex items-center gap-5 font-semibold">
-            {!location.pathname === "/setup" && !user.family (
+            {location.pathname !== "/setup" && user.familyId === null && (
               <CommonButton
                 label="+family"
                 variant="caution"
                 adjustments="py-1"
+                url="/setup"
               />
             )}
-            <CommonButton
-              label="logoff"
-              adjustments="py-1"
-              onClick={logout}
-              variant="secondary"
-            />
+            <div className="w-10 h-10 bg-black rounded-full"></div>
+            {/* {location.pathname !== "/setup" && (
+              <CommonButton
+                label="logoff"
+                adjustments="py-1"
+                onClick={logout}
+                variant="secondary"
+              />
+            )} */}
           </div>
         )}
       </div>

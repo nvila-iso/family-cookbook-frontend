@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
+import { toast } from "react-toastify";
 import { FaUserCircle } from "react-icons/fa";
 import { FaUnlockKeyhole } from "react-icons/fa6";
 
@@ -9,6 +10,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { login, token } = useAuth();
   const [error, setError] = useState(null);
+
+  const loginSuccess = () => toast("Login Success!");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,9 +25,11 @@ const Login = () => {
       const data = await login(credentials);
 
       if (!data.user.firstName || !data.user.lastName || !data.user.username) {
+        loginSuccess();
         navigate("/setup");
       } else {
-        navigate("/family_cookbook");
+        loginSuccess();
+        navigate("/profile");
       }
     } catch (error) {
       if (error === `{"error":"User not found"}`) {

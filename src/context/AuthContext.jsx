@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
       saveToken(data.token);
       setUser(data.user);
-      
+      sessionStorage.setItem("user", JSON.stringify(data.user));
       return data;
     } catch (error) {
       console.error(error.message);
@@ -64,12 +64,21 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     try {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
       setToken(null);
       setUser(null);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
@@ -91,14 +100,20 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       })
       .catch(() => {
-        sessionStorage.removeItem("token");
-        setUser(null);
-        setToken(null);
+        console.error("Profile fetch failed");
+
+        if (error?.status === 401) {
+          sessionStorage.removeItem("token");
+          sessionStorage.removeItem("user");
+          setUser(null);
+          setToken(null);
+        }
+
         setLoading(false);
       });
   }, []);
 
-  const value = { token, login, user, logout, register, loading };
+  const value = { token, login, user, setUser, logout, register, loading };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
+import { ToastContainer, toast } from "react-toastify";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 
@@ -9,37 +10,41 @@ const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
   const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordOne, setShowPasswordOne] = useState(false);
+  const [showPasswordTwo, setShowPasswordTwo] = useState(false);
+
+  const registrationSuccess = () => toast("Registration Success");
 
   const handleRegistration = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
-    // const firstName = fd.get("firstName");
-    // const lastName = fd.get("lastName");
-    // const username = fd.get("username");
+
     const email = fd.get("email");
     const passwordOne = fd.get("passwordOne");
     const passwordTwo = fd.get("passwordTwo");
 
     if (passwordOne !== passwordTwo) {
       setError("Your passwords don't match!");
-      return; // <-- simply stop execution
+      return;
     }
 
-    const password = passwordOne;
+    const password = passwordTwo;
 
     const registrationData = { email, password };
 
     try {
       await register(registrationData);
+      registrationSuccess();
       navigate("/login");
     } catch (error) {
-      setError(error.message);
+      setError(error);
     }
   };
 
-  const handleShowPassword = () => {
-    if (showPassword) {
+  const handleShowPassword = (field) => {
+    if (field === 1 && showPasswordOne) {
+      return "text";
+    } else if (field === 2 && showPasswordTwo) {
       return "text";
     } else {
       return "password";
@@ -60,7 +65,7 @@ const Register = () => {
             </div>
             <form
               onSubmit={handleRegistration}
-              className="w-[90%] flex flex-col gap-2"
+              className="w-[90%] flex flex-col gap-2 mt-3"
             >
               {/* EMAIL */}
               <fieldset className="border ">
@@ -77,19 +82,19 @@ const Register = () => {
                 <div className="relative">
                   <input
                     name="passwordOne"
-                    type={handleShowPassword()}
+                    type={handleShowPassword(1)}
                     className="pb-1 px-3 w-full focus:outline-none"
                     required
                   />
-                  {showPassword ? (
+                  {showPasswordOne ? (
                     <FaRegEye
                       className="absolute -translate-y-6 translate-x-65 cursor-pointer"
-                      onClick={() => setShowPassword(false)}
+                      onClick={() => setShowPasswordOne(false)}
                     />
                   ) : (
                     <FaRegEyeSlash
                       className="absolute -translate-y-6 translate-x-65 cursor-pointer"
-                      onClick={() => setShowPassword(true)}
+                      onClick={() => setShowPasswordOne(true)}
                     />
                   )}
                 </div>
@@ -101,29 +106,27 @@ const Register = () => {
                 <div className="relative">
                   <input
                     name="passwordTwo"
-                    type={handleShowPassword()}
+                    type={handleShowPassword(2)}
                     className="pb-1 px-3 w-full focus:outline-none"
                     required
                   />
-                  {showPassword ? (
+                  {showPasswordTwo ? (
                     <FaRegEye
                       className="absolute -translate-y-6 translate-x-65 cursor-pointer"
-                      onClick={() => setShowPassword(false)}
+                      onClick={() => setShowPasswordTwo(false)}
                     />
                   ) : (
                     <FaRegEyeSlash
                       className="absolute -translate-y-6 translate-x-65 cursor-pointer"
-                      onClick={() => setShowPassword(true)}
+                      onClick={() => setShowPasswordTwo(true)}
                     />
                   )}
                 </div>
               </fieldset>
-              <div>
-                {error && (
-                  <>
-                    <p className="text-sm text-center">{error}</p>
-                  </>
-                )}
+              <div className="flex justify-between text-xs">
+                <p>{error}</p>
+
+                <p className="italic underline">have an account?</p>
               </div>
 
               <button
