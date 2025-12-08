@@ -9,7 +9,7 @@ const RootLayout = () => {
         <header>
           <Nav />
         </header>
-        <main className="max-h-6xl h-screen mx-auto">
+        <main className="max-h-6xl h-screen mx-auto px-3">
           <Outlet />
           <ToastContainer position="bottom-right" closeOnClick pauseOnHover />
         </main>

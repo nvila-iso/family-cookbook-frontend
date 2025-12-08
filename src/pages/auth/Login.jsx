@@ -29,7 +29,7 @@ const Login = () => {
         navigate("/setup");
       } else {
         loginSuccess();
-        navigate("/profile");
+        navigate("/settings");
       }
     } catch (error) {
       if (error === `{"error":"User not found"}`) {

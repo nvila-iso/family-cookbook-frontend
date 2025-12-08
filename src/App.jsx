@@ -8,7 +8,7 @@ import FamilyCookbook from "./pages/FamilyCookbook";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Setup from "./pages/user/profile/Setup";
-import Profile from "./pages/user/profile/settings/Profile";
+import Settings from "./pages/user/profile/settings/Settings";
 
 const routes = [
   {
@@ -38,10 +38,10 @@ const routes = [
         ),
       },
       {
-        path: "/profile",
+        path: "/settings",
         element: (
           <ProtectedRoute>
-            <Profile />
+            <Settings />
           </ProtectedRoute>
         ),
       },

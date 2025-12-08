@@ -2,10 +2,13 @@ import { Link, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 import CommonButton from "../components/commonUI/CommonButton";
+import UserDropdown from "../components/user/UserDropdown";
 
 const Nav = () => {
-  const { token, logout, user } = useAuth();
+  const { token, user } = useAuth();
   const location = useLocation();
+
+  console.log(user);
 
   return (
     <>
@@ -22,23 +25,17 @@ const Nav = () => {
           </div>
         ) : (
           <div className="flex items-center gap-5 font-semibold">
-            {location.pathname !== "/setup" && user.familyId === null && (
-              <CommonButton
-                label="+family"
-                variant="caution"
-                adjustments="py-1"
-                url="/setup"
-              />
-            )}
-            <div className="w-10 h-10 bg-black rounded-full"></div>
-            {/* {location.pathname !== "/setup" && (
-              <CommonButton
-                label="logoff"
-                adjustments="py-1"
-                onClick={logout}
-                variant="secondary"
-              />
-            )} */}
+            {token &&
+              location.pathname !== "/setup" &&
+              user?.familyId === null && (
+                <CommonButton
+                  label="+family"
+                  variant="caution"
+                  adjustments="py-1"
+                  url="/setup"
+                />
+              )}
+            <UserDropdown />
           </div>
         )}
       </div>
