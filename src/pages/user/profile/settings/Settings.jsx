@@ -8,6 +8,7 @@ import { BsFillHouseGearFill } from "react-icons/bs";
 import UserProfileSettings from "../../../../components/user/UserProfileSettings";
 import UserAccountSettings from "../../../../components/user/UserAccountSettings";
 import UserPreferencesSettings from "../../../../components/user/UserPreferencesSettings";
+import FamilyMembersSettings from "../../../../components/family/FamilyMembersSettings";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -75,6 +76,7 @@ const Profile = () => {
             {activeTab === "profile" && <UserProfileSettings />}
             {activeTab === "account" && <UserAccountSettings />}
             {activeTab === "preferences" && <UserPreferencesSettings />}
+            {activeTab === "members" && <FamilyMembersSettings />}
           </div>
         </div>
       </div>
