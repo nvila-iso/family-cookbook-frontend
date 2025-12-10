@@ -17,7 +17,11 @@ const Home = () => {
               </p>
               <div className="flex gap-3">
                 <CommonButton label="Create Cookbook" url="/register" />
-                <CommonButton label="Explore Recipes" url="/family_cookbook" variant="secondary"/>
+                <CommonButton
+                  label="Explore Recipes"
+                  url="/browse"
+                  variant="secondary"
+                />
               </div>
             </div>
             {/* IMAGE SECTION */}

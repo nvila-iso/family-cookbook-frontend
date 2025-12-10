@@ -27,7 +27,7 @@ const Nav = () => {
           <div className="flex items-center gap-5 font-semibold">
             {token &&
               location.pathname !== "/setup" &&
-              user?.familyId === null && (
+              user?.family === null && (
                 <CommonButton
                   label="+family"
                   variant="caution"

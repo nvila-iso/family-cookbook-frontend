@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import UserDetails from "../../../components/setup/UserDetails";
 import FamilyDetails from "../../../components/setup/FamilyDetails";
@@ -15,10 +15,11 @@ const Setup = () => {
     !user?.firstName || !user.lastName || !user.username;
   const isMissingFamily = !user?.familyId;
 
-  if (!isMissingUserDetails && !isMissingFamily) {
-    navigate("/family_cookbook");
-    return null;
-  }
+  useEffect(() => {
+    if (!isMissingUserDetails && !isMissingFamily) {
+      navigate("/family_cookbook");
+    }
+  }, [isMissingUserDetails, isMissingFamily, navigate]);
 
   return (
     <>

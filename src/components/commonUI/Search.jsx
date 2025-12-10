@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import useClickOutside from "./useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const Search = () => {
   const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ const Search = () => {
         <div
           ref={dropdownRef}
           id="nav-filters"
-          className="w-full h-34 shadow-sm bg-white absolute grid grid-cols-3 px-10 py-4 justify-center items-center"
+          className="w-full h-34 shadow-sm bg-white absolute grid grid-cols-3 px-10 py-4 justify-center items-center z-1"
         >
           <div className="text-center">checkboxes</div>
           <div className="text-center">checkboxes</div>
