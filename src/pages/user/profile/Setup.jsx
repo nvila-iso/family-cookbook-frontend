@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import UserDetails from "../../../components/setup/UserDetails";
 import FamilyDetails from "../../../components/setup/FamilyDetails";
+import CreateFamily from "../../../components/setup/CreateFamily";
 import { useAuth } from "../../../context/AuthContext";
 
 const Setup = () => {
   const [showFamilyOption, setShowFamilyOption] = useState(false);
+  const [showSetupScreen, setShowSetupScreen] = useState("user-details");
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -16,8 +18,14 @@ const Setup = () => {
   const isMissingFamily = !user?.familyId;
 
   useEffect(() => {
+    if (!isMissingUserDetails) {
+      setShowSetupScreen("family-details");
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isMissingUserDetails && !isMissingFamily) {
-      navigate("/family_cookbook");
+      navigate("/settings");
     }
   }, [isMissingUserDetails, isMissingFamily, navigate]);
 
@@ -25,13 +33,13 @@ const Setup = () => {
     <>
       <div className="max-w-6xl mx-auto px-3 h-screen">
         <div className="flex justify-center items-center h-full">
-          {isMissingUserDetails ? (
-            <UserDetails />
-          ) : isMissingFamily ? (
-            <FamilyDetails />
-          ) : (
-            <div>All setup complete!</div>
+          {showSetupScreen === "user-details" && (
+            <UserDetails setShowSetupScreen={setShowSetupScreen} />
           )}
+          {showSetupScreen === "family-details" && (
+            <FamilyDetails setShowSetupScreen={setShowSetupScreen} />
+          )}
+          {showSetupScreen === "create-family" && <CreateFamily />}
         </div>
       </div>
     </>

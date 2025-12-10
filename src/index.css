@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
-@keyframes slideIn {
-    
+@keyframes slideLeftToRight {
+  from {
+    opacity: 0;
+    right: 150px;
+  }
+  to {
+    opacity: 1;
+    right: 0;
+  }
 }
 
-#user-details {
+.slide-left-to-right {
+  position: relative;
+  animation-name: slideLeftToRight;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
 }

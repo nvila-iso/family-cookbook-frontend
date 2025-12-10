@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 
 import { toast } from "react-toastify";
 
-const UserDetails = ({ setShowFamilyOption }) => {
+const UserDetails = ({ setShowSetupScreen }) => {
   const [error, setError] = useState(null);
   const { user, setUser, token } = useAuth();
 
@@ -37,7 +37,7 @@ const UserDetails = ({ setShowFamilyOption }) => {
 
       console.log("Updated user:", data);
       registrationComplete();
-      setShowFamilyOption(true);
+      setShowSetupScreen("family-details");
     } catch (error) {
       console.error(error);
       setError(error.message);
@@ -45,7 +45,7 @@ const UserDetails = ({ setShowFamilyOption }) => {
   };
   return (
     <>
-      <div id="user-details" className="relative">
+      <div className="relative slide-left-to-right">
         <div className="text-center flex flex-col gap-1 mb-3">
           <h2 className="text-3xl font-semibold">Complete Setup</h2>
           <p>Thanks again for registering! Time to finish your profile.</p>
