@@ -12,7 +12,9 @@ const CommonButton = ({
       "bg-amber-400 text-amber-900 shadow-sm hover:bg-amber-300 hover:shadow-md transition",
     secondary:
       "bg-black text-white shadow-sm hover:bg-black/70 hover:shadow-md transition",
-    caution: "bg-red-300 text-red-950 shadow-sm hover:bg-red-300/80 hover:shadow-md hover:text-red-800 transition",
+    caution:
+      "bg-red-300 text-red-950 shadow-sm hover:bg-red-300/80 hover:shadow-md hover:text-red-800 transition",
+    new: "bg-emerald-300 text-emerald-950 shadow-sm hover:bg-emerald-300/80 hover:shadow-md hover:text-emerald-800 transition",
   };
 
   return (

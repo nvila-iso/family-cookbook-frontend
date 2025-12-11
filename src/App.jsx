@@ -4,7 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
-import FamilyCookbook from "./pages/FamilyCookbook";
+import FamilyPage from "./pages/FamilyPage";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Setup from "./pages/user/profile/Setup";
@@ -19,16 +19,9 @@ const routes = [
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "browse", Component: Browse },
+      {path: "/family/:slug", Component: FamilyPage},
 
       // PROTECTED PAGES
-      {
-        path: "/family_cookbook",
-        element: (
-          <ProtectedRoute>
-            <FamilyCookbook />
-          </ProtectedRoute>
-        ),
-      },
       {
         path: "/setup",
         element: (

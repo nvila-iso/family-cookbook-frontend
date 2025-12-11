@@ -94,21 +94,32 @@ export const AuthProvider = ({ children }) => {
         Authorization: `Bearer ${storedToken}`,
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data.user);
-        setLoading(false);
-      })
-      .catch(() => {
-        console.error("Profile fetch failed");
-
-        if (error?.status === 401) {
+      .then(async (res) => {
+        if (res.status === 401) {
           sessionStorage.removeItem("token");
           sessionStorage.removeItem("user");
           setUser(null);
           setToken(null);
+          setLoading(false);
+          return null;
         }
 
+        if (!res.ok) {
+          setLoading(false);
+          return null;
+        }
+
+        return res.json();
+      })
+      .then((data) => {
+        if (data?.user) {
+          setUser(data.user);
+          sessionStorage.setItem("user", JSON.stringify(data.user));
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Profile fetch failed:", err);
         setLoading(false);
       });
   }, []);

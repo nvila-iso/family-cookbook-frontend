@@ -40,7 +40,7 @@ const FamilyDetails = ({ setShowSetupScreen }) => {
 
       console.log("Added to family:", data);
       joinedFamily();
-      navigate("/profile");
+      navigate("/settings");
     } catch (error) {
       console.error(error);
       setError(error.message);

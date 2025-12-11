@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
@@ -9,9 +10,13 @@ import UserProfileSettings from "../../../../components/user/UserProfileSettings
 import UserAccountSettings from "../../../../components/user/UserAccountSettings";
 import UserPreferencesSettings from "../../../../components/user/UserPreferencesSettings";
 import FamilyMembersSettings from "../../../../components/family/FamilyMembersSettings";
+import FamilyDetailsSettings from "../../../../components/family/FamilyDetailsSettings";
 
-const Profile = () => {
-  const [activeTab, setActiveTab] = useState("profile");
+const Settings = () => {
+  const { state } = useLocation();
+  const initialTab = state?.activeTab || "profile";
+
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const isActiveTag = (tag) => {
     return activeTab === tag ? "bg-amber-300" : "hover:bg-amber-100 transition";
@@ -55,6 +60,15 @@ const Profile = () => {
             <h2 className="font-semibold">Family Settings</h2>
             <div
               className={`${isActiveTag(
+                "details"
+              )} w-full flex gap-2 items-center self-start rounded px-1 py-2`}
+              onClick={() => setActiveTab("details")}
+            >
+              <BsFillHouseGearFill />
+              <button className="text-sm">Family Details / Theme</button>
+            </div>
+            <div
+              className={`${isActiveTag(
                 "members"
               )} w-full flex gap-3 items-center self-start rounded p-1`}
               onClick={() => setActiveTab("members")}
@@ -62,21 +76,13 @@ const Profile = () => {
               <FaUsers />
               <button>Members</button>
             </div>
-            <div
-              className={`${isActiveTag(
-                "familyDetails"
-              )} w-full flex gap-2 items-center self-start rounded px-1 py-2`}
-              onClick={() => setActiveTab("familyDetails")}
-            >
-              <BsFillHouseGearFill />
-              <button className="text-sm">Family Details / Theme</button>
-            </div>
           </div>
           <div>
             {activeTab === "profile" && <UserProfileSettings />}
             {activeTab === "account" && <UserAccountSettings />}
             {activeTab === "preferences" && <UserPreferencesSettings />}
             {activeTab === "members" && <FamilyMembersSettings />}
+            {activeTab === "details" && <FamilyDetailsSettings />}
           </div>
         </div>
       </div>
@@ -84,4 +90,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Settings;

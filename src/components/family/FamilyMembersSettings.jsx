@@ -5,8 +5,9 @@ const FamilyMembersSettings = () => {
   const { user, token } = useAuth();
   const [error, setError] = useState(null);
   const [family, setFamily] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  console.log(family.members.length);
+  console.log(user.family.slug);
 
   useEffect(() => {
     if (!user?.family?.slug) return;
@@ -23,8 +24,10 @@ const FamilyMembersSettings = () => {
 
         const data = await res.json();
         setFamily(data.family);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
         setError("Failed to load family");
       }
     };
@@ -33,7 +36,7 @@ const FamilyMembersSettings = () => {
 
   return (
     <>
-      <p>{family.members.length}</p>
+      <p>{family?.members?.length}</p>
     </>
   );
 };
