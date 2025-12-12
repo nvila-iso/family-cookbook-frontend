@@ -32,7 +32,7 @@ const FamilyPage = () => {
 
   return (
     <>
-      <div className="p-5 w-full grid grid-cols-[25%_1fr] h-screen gap-x-5 mx-auto">
+      <div className="py-5 w-full grid grid-cols-[25%_1fr] h-screen gap-x-5 mx-auto">
         <FamilyProfileSidePanel family={family} user={user} />
 
         {/* COOKBOOK SECTION */}

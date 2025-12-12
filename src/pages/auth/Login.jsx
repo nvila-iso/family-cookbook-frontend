@@ -27,9 +27,12 @@ const Login = () => {
       if (!data.user.firstName || !data.user.lastName || !data.user.username) {
         loginSuccess();
         navigate("/setup");
-      } else {
+      } else if (!data.user.family) {
         loginSuccess();
         navigate("/settings");
+      } else {
+        loginSuccess();
+        navigate(`/family/${data?.user?.family?.slug}`);
       }
     } catch (error) {
       if (error === `{"error":"User not found"}`) {

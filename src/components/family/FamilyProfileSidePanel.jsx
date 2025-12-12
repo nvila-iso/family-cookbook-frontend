@@ -2,6 +2,7 @@ import { Link } from "react-router";
 
 const FamilyProfileSidePanel = ({ family, user }) => {
   const isFamilyMember = user?.family?.id === family?.id;
+  console.log(user);
 
   return (
     <>
@@ -33,7 +34,6 @@ const FamilyProfileSidePanel = ({ family, user }) => {
         <div className="flex justify-center items-center mx-auto w-50 h-50 rounded-full bg-teal-100 text-lime-700 text-[10rem] text-center font-semibold">
           <p>{family?.name?.[0]?.toUpperCase() || "U"}</p>
         </div>
-
 
         {/* FAMILY BIO */}
         <div className="px-2">
@@ -67,13 +67,20 @@ const FamilyProfileSidePanel = ({ family, user }) => {
           <button className="bg-teal-100 text-lime-700 font-bold px-2 py-1 w-32 rounded mx-auto mb-3 hover:bg-teal-200 transition">
             Follow
           </button>
-        ) : (
+        ) : isFamilyMember ? (
           <Link
             to="/settings"
             state={{ activeTab: "details" }}
             className="text-center bg-teal-100 text-lime-700 font-bold px-2 py-1 w-32 rounded mx-auto mb-3 hover:bg-teal-200 transition"
           >
             Settings
+          </Link>
+        ) : (
+          <Link
+            to="/login"
+            className="text-center bg-teal-100 text-lime-700 font-bold px-2 py-1 w-44 rounded mx-auto mb-3 hover:bg-teal-200 transition"
+          >
+            Login to follow
           </Link>
         )}
       </div>
