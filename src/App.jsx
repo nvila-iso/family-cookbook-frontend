@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Setup from "./pages/user/profile/Setup";
 import Settings from "./pages/user/profile/settings/Settings";
+import CreateRecipe from "./pages/user/profile/CreateRecipe";
 
 const routes = [
   {
@@ -19,7 +20,7 @@ const routes = [
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "browse", Component: Browse },
-      {path: "/family/:slug", Component: FamilyPage},
+      { path: "/family/:slug", Component: FamilyPage },
 
       // PROTECTED PAGES
       {
@@ -35,6 +36,14 @@ const routes = [
         element: (
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/create",
+        element: (
+          <ProtectedRoute>
+            <CreateRecipe />
           </ProtectedRoute>
         ),
       },

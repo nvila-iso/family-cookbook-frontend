@@ -32,6 +32,7 @@ const FamilyCookbookDisplay = ({ family }) => {
               label="+ Add Recipe"
               variant="new"
               adjustments="py-2"
+              url="/create"
             />
           </div>
           {/* DISPLAY TOGGLE */}
