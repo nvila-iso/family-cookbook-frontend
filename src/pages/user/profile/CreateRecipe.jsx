@@ -7,6 +7,7 @@ const CreateRecipe = () => {
   const [ingredients, setIngredients] = useState([
     { quantity: "", unit: "", name: "" },
   ]);
+  const [focusIndex, setFocusIndex] = useState(null);
 
   const canAddIngredient =
     ingredients[ingredients.length - 1]?.name?.trim().length > 0;
@@ -19,6 +20,7 @@ const CreateRecipe = () => {
     }
 
     setIngredients((prev) => [...prev, { quantity: "", unit: "", name: "" }]);
+    setFocusIndex(ingredients.length);
   };
 
   const handleRemoveIngredient = (index) => {
@@ -97,6 +99,7 @@ const CreateRecipe = () => {
                   ingredient={ingredient}
                   onChange={handleIngredientChange}
                   onDelete={handleRemoveIngredient}
+                  shouldFocus={index === focusIndex}
                 />
               ))}
             </div>

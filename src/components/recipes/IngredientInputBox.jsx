@@ -1,8 +1,34 @@
 import { MdDeleteForever } from "react-icons/md";
+import { useEffect, useRef } from "react";
 
-const IngredientInputBox = ({ index, ingredient, onChange, onDelete }) => {
+const IngredientInputBox = ({
+  index,
+  ingredient,
+  onChange,
+  onDelete,
+  shouldFocus,
+}) => {
+  const nameInputRef = useRef(null);
+
+  useEffect(() => {
+    if (shouldFocus && nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, [shouldFocus]);
+
   return (
     <div className="flex gap-3">
+      <div className="flex flex-col">
+        <p>ingredient name</p>
+        <input
+          ref={nameInputRef}
+          type="text"
+          className="border p-1 rounded"
+          name="name"
+          value={ingredient.name}
+          onChange={(e) => onChange(index, "name", e.target.value)}
+        />
+      </div>
       <div className="flex flex-col">
         <p>quantity</p>
         <input
@@ -21,16 +47,6 @@ const IngredientInputBox = ({ index, ingredient, onChange, onDelete }) => {
           name="unit"
           value={ingredient.unit}
           onChange={(e) => onChange(index, "unit", e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <p>ingredient name</p>
-        <input
-          type="text"
-          className="border p-1 rounded"
-          name="name"
-          value={ingredient.name}
-          onChange={(e) => onChange(index, "name", e.target.value)}
         />
       </div>
       <MdDeleteForever
