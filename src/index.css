@@ -11,9 +11,24 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .slide-left-to-right {
   position: relative;
   animation-name: slideLeftToRight;
   animation-duration: 0.8s;
   animation-timing-function: ease-in-out;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in;
 }

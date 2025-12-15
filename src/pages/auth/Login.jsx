@@ -32,7 +32,7 @@ const Login = () => {
         navigate("/settings");
       } else {
         loginSuccess();
-        navigate(`/family/${data?.user?.family?.slug}`);
+        navigate(`/family/${data?.user?.family?.slug}/manage`);
       }
     } catch (error) {
       if (error === `{"error":"User not found"}`) {
@@ -47,7 +47,7 @@ const Login = () => {
     <>
       <div className="max-w-6xl h-screen px-3 mx-auto">
         <div className="h-full flex flex-col justify-center items-center">
-          <div className="w-xs h-115 rounded-lg shadow-lg flex flex-col items-center">
+          <div className="fade-in w-xs h-115 rounded-lg shadow-lg flex flex-col items-center">
             <div>
               <img
                 src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"

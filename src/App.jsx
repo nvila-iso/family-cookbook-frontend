@@ -10,6 +10,7 @@ import Register from "./pages/auth/Register";
 import Setup from "./pages/user/profile/Setup";
 import Settings from "./pages/user/profile/settings/Settings";
 import CreateRecipe from "./pages/user/profile/CreateRecipe";
+import PublicFamilyPage from "./pages/PublicFamilyPage";
 
 const routes = [
   {
@@ -20,7 +21,7 @@ const routes = [
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "browse", Component: Browse },
-      { path: "/family/:slug", Component: FamilyPage },
+      { path: "/family/:slug", Component: PublicFamilyPage },
 
       // PROTECTED PAGES
       {
@@ -44,6 +45,14 @@ const routes = [
         element: (
           <ProtectedRoute>
             <CreateRecipe />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/family/:slug/manage",
+        element: (
+          <ProtectedRoute>
+            <FamilyPage />
           </ProtectedRoute>
         ),
       },

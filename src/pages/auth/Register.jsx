@@ -55,7 +55,7 @@ const Register = () => {
     <>
       <div className="max-w-6xl mx-auto px-3 h-screen">
         <div className="h-full flex flex-col justify-center items-center">
-          <div className="w-xs h-130 rounded-lg shadow-lg flex flex-col items-center">
+          <div className="fade-in w-xs h-130 rounded-lg shadow-lg flex flex-col items-center">
             <div>
               <img
                 src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"

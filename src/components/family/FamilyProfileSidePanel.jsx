@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 const FamilyProfileSidePanel = ({ family, user }) => {
   const isFamilyMember = user?.family?.id === family?.id;
-  console.log(user);
+
 
   return (
     <>
@@ -19,7 +19,7 @@ const FamilyProfileSidePanel = ({ family, user }) => {
 
           {/* RECIPES */}
           <div className="flex flex-col justify-center items-center text-xs">
-            <p>?</p>
+            <p>{family?.recipes?.length}</p>
             <p>recipes</p>
           </div>
 

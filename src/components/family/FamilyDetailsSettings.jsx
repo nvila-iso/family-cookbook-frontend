@@ -10,7 +10,7 @@ const FamilyDetailsSettings = () => {
 
   return (
     <>
-      <Link to={`/family/${familySlug}`}>Family</Link>
+      <Link to={`/family/${familySlug}/manage`}>Family</Link>
     </>
   );
 };

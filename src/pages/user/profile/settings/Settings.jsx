@@ -24,7 +24,7 @@ const Settings = () => {
 
   return (
     <div className="h-[90vh]">
-      <div className="flex justify-center items-center h-full">
+      <div className="fade-in flex justify-center items-center h-full">
         <div className="h-[70%] border border-black/30 w-full grid grid-cols-[200px_1fr] rounded ">
           <div className="flex flex-col items-center border-r border-black/30 gap-3 p-3">
             <h2 className="font-semibold">User Settings</h2>

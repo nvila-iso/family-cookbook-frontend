@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <div className="mx-auto max-w-6xl px-3 h-screen">
-        <div className="flex flex-col justify-center items-center h-full">
+        <div className="fade-in flex flex-col justify-center items-center h-full">
           <div className="grid sm:grid-cols-2">
             {/* TITLE */}
             <div className="flex flex-col gap-5">
