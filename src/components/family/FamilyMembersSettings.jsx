@@ -7,8 +7,6 @@ const FamilyMembersSettings = () => {
   const [family, setFamily] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(user.family.slug);
-
   useEffect(() => {
     if (!user?.family?.slug) return;
 

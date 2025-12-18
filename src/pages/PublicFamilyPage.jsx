@@ -7,8 +7,6 @@ const PublicFamilyPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(family);
-
   useEffect(() => {
     if (!slug) return;
 

@@ -4,12 +4,12 @@ import { PiListLight } from "react-icons/pi";
 import { FaRegClock } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa6";
 import { BiBowlRice } from "react-icons/bi";
+import RecipeCard from "../commonUI/RecipeCard";
 
 const FamilyCookbookDisplay = ({ family }) => {
-  console.log(family);
   return (
     <>
-      <div className="border border-black/30 rounded p-2">
+      <div className="border rounded-2xl p-2 h-[80vh] bg-amber-100/20 border-amber-200 shadow-sm">
         <div className="flex justify-between">
           {/* FILTERS */}
           <div className="flex gap-5">
@@ -49,7 +49,8 @@ const FamilyCookbookDisplay = ({ family }) => {
 
         {/* ACTUAL DISPLAY */}
         <div className="flex flex-col justify-center items-center h-full">
-          <div className="w-52 h-60 border border-black/10 shadow-xs rounded-lg p-2 flex flex-col gap-1 hover:shadow-md transition">
+          <RecipeCard />
+          {/* <div className="w-52 h-60 border border-black/10 shadow-xs rounded-lg p-2 flex flex-col gap-1 hover:shadow-md transition">
             <img
               src="https://hips.hearstapps.com/hmg-prod/images/lentil-soup-recipe-2-677c54158ad10.jpg?crop=0.6667718689179948xw:1xh;center,top&resize=1200:*"
               alt=""
@@ -74,7 +75,7 @@ const FamilyCookbookDisplay = ({ family }) => {
                 <p className="text-zinc-600">102</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

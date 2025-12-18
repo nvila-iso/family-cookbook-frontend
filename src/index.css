@@ -20,6 +20,15 @@
   }
 }
 
+@keyframes spinIcon {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .slide-left-to-right {
   position: relative;
   animation-name: slideLeftToRight;
@@ -31,4 +40,10 @@
   animation-name: fadeIn;
   animation-duration: 0.3s;
   animation-timing-function: ease-in;
+}
+
+.spin-icon {
+  animation-name: spinIcon;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
 }

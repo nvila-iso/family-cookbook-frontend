@@ -74,9 +74,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
-    if (storedUser) {
+
+    try {
       setUser(JSON.parse(storedUser));
+    } catch (error) {
+      console.warn("Invalid user in sessionStorage, clearing!");
+      sessionStorage.removeItem("user");
     }
+
     setLoading(false);
   }, []);
 
@@ -113,8 +118,14 @@ export const AuthProvider = ({ children }) => {
       })
       .then((data) => {
         if (data?.user) {
-          setUser(data.user);
-          sessionStorage.setItem("user", JSON.stringify(data.user));
+          setUser((prev) => ({
+            ...prev,
+            ...data.user,
+          }));
+          sessionStorage.setItem(
+            "user",
+            JSON.stringify({ ...user, ...data.user })
+          );
         }
         setLoading(false);
       })

@@ -9,18 +9,32 @@ const UserDropdown = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-  if (!user) return null;
   useClickOutside(dropdownRef, () => setOpen(false));
 
+  if (!user) return null;
+
+  console.log(user);
   return (
     <div>
       <button
-        className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center"
+        className="w-10 h-10 rounded-full bg-black flex items-center justify-center overflow-hidden"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <span className="text-sm font-bold">
-          {user?.firstName?.[0]?.toUpperCase() || "U"}
-        </span>
+        {!user?.avatarUrl ? (
+          <>
+            <span className="text-green-300 text-sm font-bold">
+              {user?.firstName?.[0]?.toUpperCase() || "U"}
+            </span>
+          </>
+        ) : (
+          <>
+            <img
+              src={`http://localhost:5000${user.avatarUrl}`}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </>
+        )}
       </button>
 
       {open && (

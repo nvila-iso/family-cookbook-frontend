@@ -8,6 +8,8 @@ const Nav = () => {
   const { token, user } = useAuth();
   const location = useLocation();
 
+
+
   return (
     <>
       <div className="flex items-center justify-between px-5 py-1 border-b border-black/10">
