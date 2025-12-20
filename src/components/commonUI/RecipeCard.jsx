@@ -5,7 +5,7 @@ import { FaRegClock } from "react-icons/fa";
 const RecipeCard = () => {
   return (
     <>
-      <div className="flex flex-col rounded-xl shadow-sm w-74 h-68">
+      <div className="flex flex-col rounded-xl shadow-sm w-full h-68">
         {/* RECIPE TITLE */}
         <div className="h-10 flex items-center text-lg font-semibold ml-5">
           <p>Mom's Chicken</p>
