@@ -66,13 +66,12 @@ const UserProfileSettings = () => {
   return (
     <>
       <div className="p-3 relative">
-
         <div className="flex gap-10">
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-black/30 flex items-center justify-center overflow-hidden">
+            <div className="w-24 h-24 rounded-full bg-emerald-300 flex items-center justify-center overflow-hidden shadow-sm">
               {!user?.avatarUrl ? (
                 <>
-                  <p className="text-4xl font-bold">
+                  <p className="text-emerald-800 text-4xl font-bold">
                     {user?.firstName?.[0]?.toUpperCase() || "U"}
                   </p>
                 </>
@@ -81,13 +80,14 @@ const UserProfileSettings = () => {
                   <img
                     src={`http://localhost:5000${user?.avatarUrl}`}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
                   />
                 </>
               )}
             </div>
             <div className="absolute left-17 bottom-1 w-10 h-10 text-white bg-sky-500 rounded-full flex items-center justify-center shadow-sm hover:shadow-xs hover:bg-sky-600 hover:text-white/50 transition">
               <FaCameraRetro className=" text-lg border-2" />
+              {/* --> this button to open webcam / phone cam */}
             </div>
           </div>
 

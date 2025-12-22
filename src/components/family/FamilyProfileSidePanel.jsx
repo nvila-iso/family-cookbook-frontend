@@ -77,9 +77,9 @@ const FamilyProfileSidePanel = ({ family, user }) => {
             {isFamilyMember && (
               <Link
                 to="/settings"
-                className="group flex justify-center items-center gap-1 bg-white rounded-full w-full shadow-sm text-lg font-semibold text-stone-500 hover:bg-white/90 hover:shadow-xs transition"
+                className="group flex justify-center items-center gap-1 bg-violet-200 rounded-full w-full shadow-sm text-lg font-semibold text-violet-500 hover:text-violet-400 hover:bg-violet-100 hover:shadow-xs transition"
               >
-                <FaGear className="text-stone-400 transition-transform duration-600 group-hover:rotate-360" />
+                <FaGear className="text-violet-500 group-hover:text-violet-400 transition-transform duration-600 group-hover:rotate-360" />
                 <p>Settings</p>
               </Link>
             )}

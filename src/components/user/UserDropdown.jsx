@@ -17,12 +17,12 @@ const UserDropdown = () => {
   return (
     <div>
       <button
-        className="w-10 h-10 rounded-full bg-black flex items-center justify-center overflow-hidden"
+        className="group w-10 h-10 rounded-full bg-emerald-300 hover:bg-emerald-500 flex items-center justify-center overflow-hidden transition"
         onClick={() => setOpen((prev) => !prev)}
       >
         {!user?.avatarUrl ? (
           <>
-            <span className="text-green-300 text-sm font-bold">
+            <span className="group-hover:text-emerald-100 transition text-emerald-800 text-sm font-bold">
               {user?.firstName?.[0]?.toUpperCase() || "U"}
             </span>
           </>
