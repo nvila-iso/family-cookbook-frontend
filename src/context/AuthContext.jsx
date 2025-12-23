@@ -72,18 +72,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const storedUser = sessionStorage.getItem("user");
+  // useEffect(() => {
+  //   const storedUser = sessionStorage.getItem("user");
 
-    try {
-      setUser(JSON.parse(storedUser));
-    } catch (error) {
-      console.warn("Invalid user in sessionStorage, clearing!");
-      sessionStorage.removeItem("user");
-    }
+  //   try {
+  //     setUser(JSON.parse(storedUser));
+  //   } catch (error) {
+  //     console.warn("Invalid user in sessionStorage, clearing!");
+  //     sessionStorage.removeItem("user");
+  //   }
 
-    setLoading(false);
-  }, []);
+  //   setLoading(false);
+  // }, []);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
@@ -118,14 +118,19 @@ export const AuthProvider = ({ children }) => {
       })
       .then((data) => {
         if (data?.user) {
-          setUser((prev) => ({
-            ...prev,
-            ...data.user,
-          }));
-          sessionStorage.setItem(
-            "user",
-            JSON.stringify({ ...user, ...data.user })
-          );
+          setUser((prev) => {
+            const updatedUser = { ...prev, ...data.user };
+            sessionStorage.setItem("user", JSON.stringify(updatedUser));
+            return updatedUser;
+          });
+          // setUser((prev) => ({
+          //   ...prev,
+          //   ...data.user,
+          // }));
+          // sessionStorage.setItem(
+          //   "user",
+          //   JSON.stringify({ ...user, ...data.user })
+          // );
         }
         setLoading(false);
       })
