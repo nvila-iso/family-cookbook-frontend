@@ -1,11 +1,12 @@
-import CommonButton from "../../../components/commonUI/CommonButton";
-
 import { useState } from "react";
-import IngredientInputBox from "../../../components/recipes/IngredientInputBox";
 import CreateRecipeSideBar from "../../../components/recipes/CreateRecipeSideBar";
-import InstructionsInputBox from "../../../components/recipes/InstructionsInputBox";
+import CreateRecipeContents from "../../../components/recipes/CreateRecipeContents";
+import { useAuth } from "../../../context/AuthContext";
+import { createRecipe } from "../../../services/recipeService";
 
 const CreateRecipe = () => {
+  const { token } = useAuth();
+  const [submitMode, setSubmitMode] = useState(null);
   const [ingredients, setIngredients] = useState([
     { quantity: "", unit: "", name: "" },
   ]);
@@ -14,143 +15,104 @@ const CreateRecipe = () => {
     { instruction: "", img: "" },
   ]);
 
-  const [focusIndex, setFocusIndex] = useState(null);
+  // decide which button the user pressed
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const canAddInstructions =
-    instructions[instructions.length - 1]?.instruction?.trim().length > 0;
-
-  const handleAddInstruction = () => {
-    const lastInstruction = instructions[instructions.length - 1];
-
-    if (!lastInstruction?.instruction?.trim()) {
+    if (!submitMode) {
+      console.warn("Submit mode not set");
       return;
     }
 
-    setInstructions((prev) => [...prev, { instruction: "", img: "" }]);
-    setFocusIndex(instructions.length);
-  };
+    const fd = new FormData(e.currentTarget);
 
-  const canAddIngredient =
-    ingredients[ingredients.length - 1]?.name?.trim().length > 0;
+    const payload = {
+      status: submitMode,
 
-  const handleAddIngredient = () => {
-    const lastIngredient = ingredients[ingredients.length - 1];
+      title: fd.get("title"),
+      familyOnly: fd.get("familyOnly") === "on",
 
-    if (!lastIngredient?.name?.trim()) {
-      return;
+      cookTime: {
+        value: fd.get("cookTime"),
+        unit: fd.get("cookTimeUnit"),
+      },
+
+      prepTime: {
+        value: fd.get("prepTime"),
+        unit: fd.get("prepTimeUnit"),
+      },
+
+      servings: fd.get("servings"),
+      notes: fd.get("notes"),
+    };
+
+    const visiblity = payload.familyOnly ? "PRIVATE" : "PUBLIC";
+
+    const cleanedIngredients = ingredients
+      .map((i) => ({
+        name: i.name.trim(),
+        quantity: i.quantity.trim(),
+        unit: i.unit.trim(),
+      }))
+      .filter((i) => i.name.length > 0);
+
+    const cleanedInstructions = instructions.map((step, index) => ({
+      stepNumber: index + 1,
+      instruction: step.instruction.trim(),
+    }));
+
+    const fullPayload = {
+      ...payload,
+      visiblity,
+      ingredients: cleanedIngredients,
+      instructions: cleanedInstructions,
+    };
+
+    console.log(fullPayload);
+
+    try {
+      const created = await createRecipe(fullPayload, token);
+      const recipeId = created.id;
+
+      for (const step of fullPayload.instructions) {
+        await fetch(`http://localhost:5000/api/recipes/${recipeId}/steps`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            stepNumber: step.stepNumber,
+            instruction: step.instruction,
+          }),
+        });
+      }
+      console.log("Recipe + steps saved");
+    } catch (error) {
+      console.error(error.message);
     }
-
-    setIngredients((prev) => [...prev, { quantity: "", unit: "", name: "" }]);
-    setFocusIndex(ingredients.length);
-  };
-
-  const handleRemoveIngredient = (index) => {
-    setIngredients((prev) =>
-      prev.length === 1 ? prev : prev.filter((_, i) => i !== index)
-    );
-  };
-
-  const handleRemoveInstruction = (index) => {
-    setInstructions((prev) =>
-      prev.length === 1 ? prev : prev.filter((_, i) => i !== index)
-    );
-  };
-
-  const handleIngredientChange = (index, field, value) => {
-    setIngredients((prev) =>
-      prev.map((ingredient, i) =>
-        i === index ? { ...ingredient, [field]: value } : ingredient
-      )
-    );
-  };
-
-  const handleInstructionChange = (index, field, value) => {
-    setInstructions((prev) =>
-      prev.map((ingredient, i) =>
-        i === index ? { ...ingredient, [field]: value } : ingredient
-      )
-    );
   };
 
   return (
     <>
-      <div className="w-full py-3 h-[80vh] flex justify-center items-center">
-        <div className="grid grid-cols-[25%_1fr] w-full h-[100%] border border-black/30 rounded">
-          {/* SIDE MENU */}
-          <CreateRecipeSideBar />
-          {/* CONTENT HERE */}
-
-          {/* TITLE */}
-          <div className="p-3 overflow-auto flex flex-col gap-3">
-            <div>
-              <p className="font-semibold">Recipe Title</p>
-              <input
-                placeholder="Title"
-                type="text"
-                className="border rounded p-1 w-xs"
-              />
-              <p className="text-sm">Created by Nick • Last saved 2 min ago</p>
-            </div>
-
-            {/* INGREDIENTS */}
-            <div className="">
-              <p className="font-semibold">Ingredients</p>
-              <div className="flex flex-col gap-3">
-                {ingredients.map((ingredient, index) => (
-                  <IngredientInputBox
-                    key={index}
-                    index={index}
-                    ingredient={ingredient}
-                    onChange={handleIngredientChange}
-                    onDelete={handleRemoveIngredient}
-                    shouldFocus={index === focusIndex}
-                  />
-                ))}
-                <button
-                  className={`${
-                    canAddIngredient
-                      ? "bg-amber-400 hover:bg-amber-300 cursor-pointer transition"
-                      : "bg-amber-100 cursor-not-allowed"
-                  } w-34 rounded px-2 py-1`}
-                  onClick={handleAddIngredient}
-                  disabled={!canAddIngredient}
-                  type="button"
-                >
-                  Add Ingredient
-                </button>
-              </div>
-            </div>
-
-            {/* INSTRUCTIONS */}
-            <div>
-              <p className="font-semibold">Instructions</p>
-              <div className="flex flex-col gap-1">
-                {instructions.map((instruction, index) => (
-                  <InstructionsInputBox
-                    key={index}
-                    index={index}
-                    instruction={instruction}
-                    onChange={handleInstructionChange}
-                    onDelete={handleRemoveInstruction}
-                    shouldFocus={index === focusIndex}
-                  />
-                ))}
-                <button
-                  className={`${
-                    canAddInstructions
-                      ? "bg-amber-400 hover:bg-amber-300 cursor-pointer transition"
-                      : "bg-amber-100 cursor-not-allowed"
-                  } w-34 rounded px-2 py-1`}
-                  onClick={handleAddInstruction}
-                  disabled={!canAddInstructions}
-                  type="button"
-                >
-                  Add Instruction
-                </button>
-              </div>
-            </div>
+      <div className="fade-in mt-5 w-full h-[80vh]">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-amber-100/75 w-full h-full rounded-xl shadow-xs p-3"
+        >
+          <div className="h-full w-full grid grid-cols-[25%_75%] border-2 border-dashed border-amber-200 rounded-xl">
+            <CreateRecipeSideBar
+              onSaveDraft={() => setSubmitMode("DRAFT")}
+              onPublish={() => setSubmitMode("PUBLISHED")}
+            />
+            <CreateRecipeContents
+              ingredients={ingredients}
+              setIngredients={setIngredients}
+              instructions={instructions}
+              setInstructions={setInstructions}
+            />
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

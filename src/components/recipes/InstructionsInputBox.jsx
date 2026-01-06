@@ -1,6 +1,7 @@
 import { MdDeleteForever } from "react-icons/md";
 import { FaCameraRetro } from "react-icons/fa";
 import { useEffect, useRef } from "react";
+import { ImCross } from "react-icons/im";
 
 const InstructionsInputBox = ({
   index,
@@ -19,21 +20,30 @@ const InstructionsInputBox = ({
 
   return (
     <div className="flex gap-3 items-center">
-      <div className="w-6 h-6 bg-black rounded-full text-white flex justify-center items-center text-xs font-semibold">
-        {index + 1}
+      <fieldset className="border border-amber-300 w-full bg-white rounded-xl shadow-sm px-2 py-1 flex items-center">
+        <legend className="text-sm text-amber-600 ml-3 font-semibold">
+          Step {index + 1}
+        </legend>
+        <input
+          ref={instructionInputRef}
+          value={instruction.instruction}
+          name="instruction"
+          type="text"
+          className="font-semibold pb-1 px-3 focus:outline-none w-full"
+          onChange={(e) => onChange(index, "instruction", e.target.value)}
+        />
+        <div className="relative bottom-1 p-2 bg-sky-500 rounded text-lg text-sky-300 hover:bg-sky-400 transition hover:text-sky-700 cursor-pointer">
+          <FaCameraRetro className="" />
+        </div>
+      </fieldset>
+
+      <div className="w-20 h-20 bg-black rounded hidden"></div>
+      <div className="flex gap-3">
+        <ImCross
+          className="mt-2 text-red-400 rounded self-center text-xl hover:text-red-500 transition cursor-pointer"
+          onClick={() => onDelete(index)}
+        />
       </div>
-      <input
-        ref={instructionInputRef}
-        value={instruction.instruction}
-        name="instruction"
-        type="text"
-        className="border p-1 rounded w-sm"
-        onChange={(e) => onChange(index, "instruction", e.target.value)}
-      />
-      <div className="p-2 bg-sky-300 rounded text-lg text-sky-900">
-        <FaCameraRetro className="" />
-      </div>
-      <MdDeleteForever className="text-2xl" onClick={() => onDelete(index)} />
     </div>
   );
 };

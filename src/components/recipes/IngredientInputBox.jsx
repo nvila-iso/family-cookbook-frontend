@@ -1,4 +1,5 @@
 import { MdDeleteForever } from "react-icons/md";
+import { ImCross } from "react-icons/im";
 import { useEffect, useRef } from "react";
 
 const IngredientInputBox = ({
@@ -17,37 +18,49 @@ const IngredientInputBox = ({
   }, [shouldFocus]);
 
   return (
-    <div className="flex gap-3">
-      <input
-        placeholder="ingredient name"
-        ref={nameInputRef}
-        type="text"
-        className="border p-1 rounded"
-        name="name"
-        value={ingredient.name}
-        onChange={(e) => onChange(index, "name", e.target.value)}
-      />
+    <div className="flex gap-3 ">
+      <fieldset className="border border-amber-300 w-xs bg-white rounded-xl shadow-sm py-1">
+        <legend className="text-sm text-amber-600 ml-3 font-semibold">
+          Ingredient Name
+        </legend>
+        <input
+          name="name"
+          ref={nameInputRef}
+          type="text"
+          className="font-semibold pb-1 px-3 w-full focus:outline-none"
+          value={ingredient.name}
+          onChange={(e) => onChange(index, "name", e.target.value)}
+        />
+      </fieldset>
 
-      <input
-        placeholder="quantity"
-        type="text"
-        className="border p-1 rounded"
-        name="quantity"
-        value={ingredient.quantity}
-        onChange={(e) => onChange(index, "quantity", e.target.value)}
-      />
+      <fieldset className="border border-amber-300 w-xs bg-white rounded-xl shadow-sm py-1">
+        <legend className="text-sm text-amber-600 ml-3 font-semibold">
+          Quantity
+        </legend>
+        <input
+          name="quantity"
+          type="text"
+          className="font-semibold pb-1 px-3 w-full focus:outline-none"
+          value={ingredient.quantity}
+          onChange={(e) => onChange(index, "quantity", e.target.value)}
+        />
+      </fieldset>
 
-      <input
-        placeholder="unit"
-        type="text"
-        className="border p-1 rounded"
-        name="unit"
-        value={ingredient.unit}
-        onChange={(e) => onChange(index, "unit", e.target.value)}
-      />
+      <fieldset className="border border-amber-300 w-xs bg-white rounded-xl shadow-sm py-1">
+        <legend className="text-sm text-amber-600 ml-3 font-semibold">
+          Unit
+        </legend>
+        <input
+          name="unit"
+          type="text"
+          className="font-semibold pb-1 px-3 w-full focus:outline-none"
+          value={ingredient.unit}
+          onChange={(e) => onChange(index, "unit", e.target.value)}
+        />
+      </fieldset>
 
-      <MdDeleteForever
-        className="rounded self-center text-2xl hover:text-red-500 transition cursor-pointer"
+      <ImCross
+        className="text-red-400 rounded self-center mt-2 text-2xl hover:text-red-500 transition cursor-pointer"
         onClick={() => onDelete(index)}
       />
     </div>
