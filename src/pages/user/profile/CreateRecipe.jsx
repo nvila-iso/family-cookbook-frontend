@@ -95,10 +95,10 @@ const CreateRecipe = () => {
 
   return (
     <>
-      <div className="fade-in mt-5 w-full h-[80vh]">
+      <div className="fade-in mt-5 w-full h-[80vh] bg-amber-100/20">
         <form
           onSubmit={handleSubmit}
-          className="bg-amber-100/75 w-full h-full rounded-xl shadow-xs p-3"
+          className=" w-full h-full rounded-xl shadow-sm p-3"
         >
           <div className="h-full w-full grid grid-cols-[25%_75%] border-2 border-dashed border-amber-200 rounded-xl">
             <CreateRecipeSideBar

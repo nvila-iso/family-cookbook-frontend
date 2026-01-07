@@ -1,6 +1,4 @@
 import AddRecipeCard from "../commonUI/AddRecipeCard";
-import CommonButton from "../commonUI/CommonButton";
-
 import RecipeCard from "../commonUI/RecipeCard";
 import CookbookNav from "./cookbookComponents/CookbookNav";
 
@@ -14,7 +12,9 @@ const FamilyCookbookDisplay = ({ family }) => {
           {/* ACTUAL DISPLAY */}
           <div className="p-2 grid grid-cols-3 justify-center gap-3 h-full">
             <AddRecipeCard />
-            <RecipeCard />
+            {family?.recipes.map((r) => {
+              return <RecipeCard recipe={r} />;
+            })}
           </div>
         </div>
       </div>
@@ -23,12 +23,3 @@ const FamilyCookbookDisplay = ({ family }) => {
 };
 
 export default FamilyCookbookDisplay;
-
-{
-  /* <CommonButton
-            label="+ Add Recipe"
-            variant="new"
-            adjustments="py-2"
-            url="/create"
-          /> */
-}
